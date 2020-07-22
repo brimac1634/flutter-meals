@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './pages/categories_page.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -11,33 +13,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Meals'),
-      ),
-      body: Center(
-          child: Text(
-              'Nav Time!')), // This trailing comma makes auto-formatting nicer for build methods.
+          canvasColor: Color.fromRGBO(255, 254, 229, 1),
+          primarySwatch: Colors.pink,
+          accentColor: Colors.amber,
+          fontFamily: 'Raleway',
+          textTheme: ThemeData.light().textTheme.copyWith(
+              bodyText1: TextStyle(color: Color.fromRGBO(20, 51, 51, 1)),
+              bodyText2: TextStyle(color: Color.fromRGBO(20, 51, 51, 1)),
+              headline1: TextStyle(
+                  color: Colors.black,
+                  fontSize: 22,
+                  fontFamily: 'RobotoCondensed',
+                  fontWeight: FontWeight.bold))),
+      home: CategoriesPage(),
     );
   }
 }

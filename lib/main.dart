@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import './pages/category_meals_page.dart';
 import './pages/categories_page.dart';
 
 void main() {
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
                   fontFamily: 'RobotoCondensed',
                   fontWeight: FontWeight.bold))),
       home: CategoriesPage(),
+      routes: {'/category-meals': (ctx) => CategoryMealsPage()},
     );
   }
 }

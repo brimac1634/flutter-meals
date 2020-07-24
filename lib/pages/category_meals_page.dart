@@ -1,27 +1,41 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/meal_item.dart';
-
+import '../models/meal.dart';
 import '../data/dummy_data.dart';
 
-class CategoryMealsPage extends StatelessWidget {
+class CategoryMealsPage extends StatefulWidget {
   static const routeName = '/category-meals';
-  // final String categoryId;
-  // final String title;
-
-  // CategoryMealsPage(this.categoryId, this.title);
 
   @override
-  Widget build(BuildContext context) {
+  _CategoryMealsPageState createState() => _CategoryMealsPageState();
+}
+
+class _CategoryMealsPageState extends State<CategoryMealsPage> {
+  String categoryTitle;
+  List<Meal> categoryMeals;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
 
     final categoryId = routeArgs['id'];
-    final categoryTitle = routeArgs['title'];
-    final categoryMeals = DUMMY_MEALS.where((meal) {
+    categoryTitle = routeArgs['title'];
+    categoryMeals = DUMMY_MEALS.where((meal) {
       return meal.categories.contains(categoryId);
     }).toList();
+  }
 
+  void _removeMeal(String mealId) {
+    setState(() {
+      categoryMeals.removeWhere((meal) => meal.id == mealId);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text(categoryTitle)),
         body: ListView.builder(
@@ -33,6 +47,7 @@ class CategoryMealsPage extends StatelessWidget {
                 duration: categoryMeals[index].duration,
                 affordability: categoryMeals[index].affordability,
                 complexity: categoryMeals[index].complexity,
+                removeItem: _removeMeal,
               );
             },
             itemCount: categoryMeals.length));

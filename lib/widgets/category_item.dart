@@ -13,8 +13,8 @@ class CategoryItem extends StatelessWidget {
     //   return CategoryMealsPage(id, title);
     // }));
 
-    Navigator.of(context)
-        .pushNamed('/category-meals', arguments: {'id': id, 'title': title});
+    Navigator.of(context).pushNamed(CategoryMealsPage.routeName,
+        arguments: {'id': id, 'title': title});
   }
 
   @override

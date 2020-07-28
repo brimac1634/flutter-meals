@@ -50,7 +50,6 @@ class _CategoryMealsPageState extends State<CategoryMealsPage> {
                 duration: categoryMeals[index].duration,
                 affordability: categoryMeals[index].affordability,
                 complexity: categoryMeals[index].complexity,
-                removeItem: _removeMeal,
               );
             },
             itemCount: categoryMeals.length));

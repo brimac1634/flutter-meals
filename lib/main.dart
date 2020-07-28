@@ -27,6 +27,7 @@ class _MyAppState extends State<MyApp> {
   };
 
   List<Meal> _availableMeals = DUMMY_MEALS;
+  List<Meal> _favoriteMeals = [];
 
   void _setFilters(Map<String, bool> filterData) {
     setState(() {
@@ -50,6 +51,24 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void _toggleFavorite(String mealId) {
+    final existingIndex =
+        _favoriteMeals.indexWhere((meal) => meal.id == mealId);
+    if (existingIndex >= 0) {
+      setState(() {
+        _favoriteMeals.removeAt(existingIndex);
+      });
+    } else {
+      setState(() {
+        _favoriteMeals.add(DUMMY_MEALS.firstWhere((meal) => meal.id == mealId));
+      });
+    }
+  }
+
+  bool _isMealFavorite(String id) {
+    return _favoriteMeals.any((meal) => meal.id == id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -67,11 +86,12 @@ class _MyAppState extends State<MyApp> {
                   fontSize: 22,
                   fontFamily: 'RobotoCondensed',
                   fontWeight: FontWeight.bold))),
-      home: TabsPage(),
+      home: TabsPage(_favoriteMeals),
       routes: {
         CategoryMealsPage.routeName: (ctx) =>
             CategoryMealsPage(_availableMeals),
-        MealDetailPage.routeName: (ctx) => MealDetailPage(),
+        MealDetailPage.routeName: (ctx) =>
+            MealDetailPage(_toggleFavorite, _isMealFavorite),
         FiltersPage.routeName: (ctx) => FiltersPage(_filters, _setFilters)
       },
       onGenerateRoute: (settings) {
